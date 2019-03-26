@@ -12,6 +12,7 @@
         "url": "https://github.com/mblander/formate/issues"
     },
     "homepage": "https://github.com/mblander/formate#formate-css-less-and-scss-formatter",
+    "icon": "images/formate icon.PNG",
     "description": "Formate is an CSS/LESS/SCSS format extension to format properties and align property values to improve readability.",
     "version": "1.0.0",
     "engines": {
