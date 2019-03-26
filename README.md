@@ -1,7 +1,7 @@
 # CSS, LESS and SCSS Formatter
 VSCode plugin to format your CSS / LESS and SCSS files which can **vertical align** properties. See image for an demo.
 
-\!\[Vertical alignment\]\(images/demo.gif\)
+![Formate: Vertical alignment](images/demo.gif)
 
 ## Installation
 Install through VS Code extensions. Search for formate.
