@@ -1,6 +1,7 @@
 {
     "name": "formate",
     "displayName": "formate: CSS/LESS/SCSS formatter",
+    "publisher": "MikeBovenlander",
     "author": {
         "name": "Mike Bovenlander"
     },

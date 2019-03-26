@@ -151,11 +151,11 @@ export function findIndexOfFurthestColon(properties: string[]): number {
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
-    const provideDocumentFormattingEdits = {
+    const provideDocumentFormattingEdits = <vscode.DocumentFormattingEditProvider>{
         provideDocumentFormattingEdits: (document: vscode.TextDocument, options: vscode.FormattingOptions) => format(document, null, options)
     };
-    const provideDocumentRangeFormattingEdits = {
-        provideDocumentRangeFormattingEdits: (document: vscode.TextDocument, ranges: any, options: vscode.FormattingOptions) => format(document, null, options)
+    const provideDocumentRangeFormattingEdits = <vscode.DocumentRangeFormattingEditProvider>{
+        provideDocumentRangeFormattingEdits: (document: vscode.TextDocument, ranges: vscode.Range, options: vscode.FormattingOptions) => format(document, ranges, options)
     };
 
     context.subscriptions.push(vscode.languages.registerDocumentFormattingEditProvider('css', provideDocumentFormattingEdits));
