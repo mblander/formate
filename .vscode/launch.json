@@ -11,9 +11,6 @@
             "request": "launch",
             "runtimeExecutable": "${execPath}",
             "args": [
-                "C:\\temp\\default-blue.css",
-                "C:\\temp\\bootstrap.css",
-                "C:\\temp\\bootstrap.less",
                 "--extensionDevelopmentPath=${workspaceFolder}",
             ],
             "outFiles": [
