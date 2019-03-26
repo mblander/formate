@@ -1,0 +1,71 @@
+{
+    "name": "formate",
+    "displayName": "formate: CSS/LESS/SCSS formatter",
+    "author": {
+        "name": "Mike Bovenlander"
+    },
+    "description": "Formate is an CSS/LESS/SCSS format extension to format properties and align property values to improve readability.",
+    "version": "1.0.0",
+    "engines": {
+        "vscode": "^1.32.0"
+    },
+    "categories": [
+        "Formatters"
+    ],
+    "keywords": [
+        "formate",
+        "css",
+        "sass",
+        "scss",
+        "less",
+        "formatter",
+        "format",
+        "beautify",
+        "beautifier",
+        "code-quality"
+    ],
+    "activationEvents": [
+        "onCommand:extension.formate",
+        "onLanguage:css",
+        "onLanguage:less",
+        "onLanguage:scss",
+        "onLanguage:sass"
+    ],
+    "main": "./out/extension",
+    "contributes": {
+        "type": "object",
+        "title": "formate configuration",
+        "properties": {
+            "formate.enable": {
+                "scope": "resource",
+                "type": "boolean",
+                "default": true,
+                "description": "Controls whether formate is enabled or not."
+            },
+            "formate.verticalAlignProperties": {
+                "scope": "resource",
+                "type": "boolean",
+                "default": false,
+                "description": "Vertical align properties on colon per selector."
+            }
+        }
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./",
+        "postinstall": "node ./node_modules/vscode/bin/install",
+        "test": "npm run compile && node ./node_modules/vscode/bin/test"
+    },
+    "dependencies": {
+        "@types/js-beautify": "^1.8.0",
+        "js-beautify": "1.9.0"
+    },
+    "devDependencies": {
+        "typescript": "^3.3.1",
+        "vscode": "^1.1.28",
+        "tslint": "^5.12.1",
+        "@types/node": "^10.12.21",
+        "@types/mocha": "^2.2.42"
+    }
+}
