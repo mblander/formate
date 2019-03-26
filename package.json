@@ -12,7 +12,7 @@
     "bugs": {
         "url": "https://github.com/mblander/formate/issues"
     },
-    "homepage": "https://github.com/mblander/formate#formate-css-less-and-scss-formatter",
+    "homepage": "https://github.com/mblander/formate",
     "icon": "images/formate icon.PNG",
     "galleryBanner": {
         "color": "#96DFFF",
