@@ -15,7 +15,7 @@
     "homepage": "https://github.com/mblander/formate",
     "icon": "images/formateicon.PNG",
     "galleryBanner": {
-        "color": "#96DFFF",
+        "color": "#333",
         "theme": "dark"
     },
     "description": "Formate is an CSS/LESS/SCSS format extension to format properties and align property values to improve readability.",
