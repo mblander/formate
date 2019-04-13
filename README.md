@@ -17,9 +17,10 @@ On Mac:
 
 ## Extension Settings
 | Tables                            | Description                                         | Type    | Default  |
-| --------------------------------- |-----------------------------------------------------|:-------:|:--------:|
+|:--------------------------------- |:----------------------------------------------------|:-------:|:--------:|
 | formate.enable                    | Enables/disables the extension                      | boolean | true     |
 | formate.verticalAlignProperties   | Controls if properties should be aligned vertically | boolean | true     |
+| formate.additionalSpaces          | if vertical alignment is on, this setting is to add extra spaces | boolean | 0     |
 
 
 

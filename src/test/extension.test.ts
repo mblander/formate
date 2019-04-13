@@ -49,6 +49,30 @@ suite("findIndexOfFurthestColon", function () {
     });
 });
 
+suite('insertExtraSpaces', function () {
+    test("insertExtraSpaces_noSpaces_noExtraSpacesAdded", () => {
+        // Arrange
+        const property = 'text-align: center;';
+
+        // Act
+        const result = extension.insertExtraSpaces(property, 0);
+
+        // Assert
+        assert.equal((result.match(/\s/g) || []).length, 1);
+    });
+
+    test("insertExtraSpaces_fiveSpaces_fiveSpacesSpacesAdded", () => {
+        // Arrange
+        const property = 'text-align: center;';
+
+        // Act
+        const result = extension.insertExtraSpaces(property, 5);
+
+        // Assert
+        assert.equal((result.match(/\s/g) || []).length, 6);
+    });
+});
+
 suite('isProperty', function () {
     test("validProperties_true", () => {
         cssProperties.forEach(property => assert.equal(extension.isProperty(property), true, `property: "${property}" failed..`));

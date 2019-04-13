@@ -36,7 +36,8 @@ export function format(document: vscode.TextDocument, range: vscode.Range | null
     let formatted = jsbeautify.css_beautify(content, beutifyOptions);
 
     if (verticalAlignProperties) {
-        formatted = verticalAlign(formatted);
+        const additionalSpaces = settings.get('additionalSpaces', 0);
+        formatted = verticalAlign(formatted, additionalSpaces);
     }
 
     if (formatted) {
@@ -54,9 +55,9 @@ export function format(document: vscode.TextDocument, range: vscode.Range | null
  * @returns {vscode.Range}
  */
 function initRange(document: vscode.TextDocument): vscode.Range {
-    const firstLine = document.lineCount - 1;
+    const lastLine = document.lineCount - 1;
     const start = new vscode.Position(0, 0);
-    const end = new vscode.Position(firstLine, document.lineAt(firstLine).text.length);
+    const end = new vscode.Position(lastLine, document.lineAt(lastLine).text.length);
 
     return new vscode.Range(start, end);
 }
@@ -93,7 +94,7 @@ export function isProperty(line: string): boolean {
  * @param {string} css
  * @returns {string}
  */
-export function verticalAlign(css: string): string {
+export function verticalAlign(css: string, additionalSpaces: number = 0): string {
     const cssLines = css.split('\n');
     let firstProperty: number = 0;
     let lastProperty: number = 0;
@@ -113,7 +114,7 @@ export function verticalAlign(css: string): string {
         // Format the selected group
         if (firstProperty !== 0 && lastProperty !== 0) {
             const properyGroup = cssLines.slice(firstProperty, lastProperty);
-            const furthestColon = findIndexOfFurthestColon(properyGroup);
+            const furthestColon = findIndexOfFurthestColon(properyGroup) + additionalSpaces;
 
             // Format the group
             while (firstProperty <= lastProperty) {
@@ -121,7 +122,7 @@ export function verticalAlign(css: string): string {
 
                 if (colonIndex < furthestColon) {
                     let diff = furthestColon - colonIndex;
-                    cssLines[firstProperty] = cssLines[firstProperty].replace(':', ' '.repeat(diff) + ':');
+                    cssLines[firstProperty] = insertExtraSpaces(cssLines[firstProperty], diff);
                 }
 
                 firstProperty++;
@@ -135,6 +136,18 @@ export function verticalAlign(css: string): string {
     });
 
     return cssLines.join('\n');
+}
+
+
+/**
+ * Replaces a colon : with needed spaces AND colon. example: "     : "
+ *
+ * @param {string} cssLine Line to do the replace in.
+ * @param {number} numberOfSpaces Number of spaces to add.
+ * @returns {string} cssLine with added spaces.
+ */
+export function insertExtraSpaces(cssLine: string, numberOfSpaces: number): string {
+    return cssLine.replace(':', ' '.repeat(numberOfSpaces) + ':');
 }
 
 /**
