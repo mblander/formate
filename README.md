@@ -16,7 +16,7 @@ On Mac:
 2. CMD + ALT + F
 
 ## Extension Settings
-| Tables                            | Description                                         | Type    | Default  |
+| Setting                           | Description                                         | Type    | Default  |
 |:--------------------------------- |:----------------------------------------------------|:-------:|:--------:|
 | formate.enable                    | Enables/disables the extension                      | boolean | true     |
 | formate.verticalAlignProperties   | Controls if properties should be aligned vertically | boolean | true     |
@@ -25,8 +25,9 @@ On Mac:
 
 
 ## Release Notes
-This is my first extension I hope you like it.
 
-### 1.0.0
-
-Initial release of CSS, LESS and SCSS Formatter
+| Version | Notes |
+|:--------|:------|
+| 1.0.0   | Initial release of CSS, LESS and SCSS Formatter
+| 1.0.1   | Few minor changes in package.json to publish to the marketplace.
+| 1.1.0   | Added setting "formate.additionalSpaces" to insert additional spaces if required.
