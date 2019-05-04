@@ -31,3 +31,4 @@ On Mac:
 | 1.0.0   | Initial release of CSS, LESS and SCSS Formatter
 | 1.0.1   | Few minor changes in package.json to publish to the marketplace.
 | 1.1.0   | Added setting "formate.additionalSpaces" to insert additional spaces if required.
+| 1.1.1   | Updated dependencies to fix the "potential security vulnerability" message.
