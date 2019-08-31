@@ -96,23 +96,23 @@ export function isProperty(line: string): boolean {
  */
 export function verticalAlign(css: string, additionalSpaces: number = 0): string {
     const cssLines = css.split('\n');
-    let firstProperty: number = 0;
-    let lastProperty: number = 0;
+    let firstProperty: number = -1;
+    let lastProperty: number = -1;
 
     cssLines.forEach((line: string, index: number) => {
         line = line.trim();
 
         // Set the start of the property group
-        if (isProperty(line) && firstProperty === 0) {
+        if (isProperty(line) && firstProperty === -1) {
             firstProperty = index;
         }
         // Last property group line.
-        if (!isProperty(line) && firstProperty > 0) {
+        if (!isProperty(line) && firstProperty >= 0) {
             lastProperty = index;
         }
 
         // Format the selected group
-        if (firstProperty !== 0 && lastProperty !== 0) {
+        if (firstProperty !== -1 && lastProperty !== -1) {
             const properyGroup = cssLines.slice(firstProperty, lastProperty);
             const furthestColon = findIndexOfFurthestColon(properyGroup) + additionalSpaces;
 
@@ -129,8 +129,8 @@ export function verticalAlign(css: string, additionalSpaces: number = 0): string
             }
 
             // Prepare for the next loop.
-            firstProperty = 0;
-            lastProperty = 0;
+            firstProperty = -1;
+            lastProperty = -1;
         }
 
     });
