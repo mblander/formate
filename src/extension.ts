@@ -18,6 +18,7 @@ export function format(document: vscode.TextDocument, range: vscode.Range | null
 
     const result: vscode.TextEdit[] = [];
     const content = document.getText(range);
+    console.log('TCL: format -> content', content)
 
     if (!defaultOptions) {
         defaultOptions = {
@@ -99,16 +100,16 @@ export function verticalAlign(css: string, additionalSpaces: number = 0): string
     let firstProperty: number = -1;
     let lastProperty: number = -1;
 
-    cssLines.forEach((line: string, index: number) => {
+    cssLines.forEach((line: string, lineNumberIndex: number) => {
         line = line.trim();
 
         // Set the start of the property group
         if (isProperty(line) && firstProperty === -1) {
-            firstProperty = index;
+            firstProperty = lineNumberIndex;
         }
         // Last property group line.
-        if (!isProperty(line) && firstProperty >= 0) {
-            lastProperty = index;
+        if ((!isProperty(line) && firstProperty >= 0) || cssLines.length - 1 === lineNumberIndex) {
+            lastProperty = lineNumberIndex;
         }
 
         // Format the selected group

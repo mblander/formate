@@ -39,6 +39,7 @@ const cssProperties: string[] = [
     'margin-left:0;',
     'margin-left:0',
     '     margin:001rem;',
+    '$warning_background_color : $white !default;',
 ];
 
 
