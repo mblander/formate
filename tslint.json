@@ -11,7 +11,7 @@
         ],
         "triple-equals": true,
         "interface-name": true,
-        "max-line-length": false,
+        "max-line-length": false
     },
     "defaultSeverity": "warning"
 }

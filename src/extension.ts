@@ -31,7 +31,7 @@ export function format(document: vscode.TextDocument, range: vscode.Range | null
         indent_char: defaultOptions.insertSpaces ? ' ' : '\t',
         indent_size: defaultOptions.insertSpaces ? defaultOptions.tabSize : 1,
         newline_between_rules: defaultOptions.newline_between_rules ? <boolean>defaultOptions.newline_between_rules : true,
-    }
+    };
 
     let formatted = jsbeautify.css_beautify(content, beutifyOptions);
 
@@ -45,7 +45,7 @@ export function format(document: vscode.TextDocument, range: vscode.Range | null
     }
 
     return result;
-};
+}
 
 
 /**
@@ -155,7 +155,7 @@ export function insertExtraSpaces(cssLine: string, numberOfSpaces: number): stri
  * @param properties 
  */
 export function findIndexOfFurthestColon(properties: string[]): number {
-    if (!properties || properties.length == 0) return 0;
+    if (!properties || properties.length === 0) return 0;
 
     return Math.max.apply(null, properties.map(p => p.indexOf(':')));
 }
