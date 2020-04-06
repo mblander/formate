@@ -10,7 +10,7 @@ export function format(document: vscode.TextDocument, range: vscode.Range | null
     if (!enable) return;
 
     const verticalAlignProperties = settings.get('verticalAlignProperties', true);
-
+    const alignColon = settings.get('alignColon', true);
     // Set range if the range isn't set.
     if (range === null) {
         range = initRange(document);
@@ -18,7 +18,7 @@ export function format(document: vscode.TextDocument, range: vscode.Range | null
 
     const result: vscode.TextEdit[] = [];
     const content = document.getText(range);
-    console.log('TCL: format -> content', content)
+    console.log('TCL: format -> content', content);
 
     if (!defaultOptions) {
         defaultOptions = {
@@ -38,7 +38,7 @@ export function format(document: vscode.TextDocument, range: vscode.Range | null
 
     if (verticalAlignProperties) {
         const additionalSpaces = settings.get('additionalSpaces', 0);
-        formatted = verticalAlign(formatted, additionalSpaces);
+        formatted = verticalAlign(formatted, additionalSpaces, alignColon);
     }
 
     if (formatted) {
@@ -95,7 +95,7 @@ export function isProperty(line: string): boolean {
  * @param {string} css
  * @returns {string}
  */
-export function verticalAlign(css: string, additionalSpaces: number = 0): string {
+export function verticalAlign(css: string, additionalSpaces: number = 0, alignColon: boolean): string {
     const cssLines = css.split('\n');
     let firstProperty: number = -1;
     let lastProperty: number = -1;
@@ -123,7 +123,7 @@ export function verticalAlign(css: string, additionalSpaces: number = 0): string
 
                 if (colonIndex < furthestColon) {
                     let diff = furthestColon - colonIndex;
-                    cssLines[firstProperty] = insertExtraSpaces(cssLines[firstProperty], diff);
+                    cssLines[firstProperty] = insertExtraSpaces(cssLines[firstProperty], diff, alignColon);
                 }
 
                 firstProperty++;
@@ -147,8 +147,8 @@ export function verticalAlign(css: string, additionalSpaces: number = 0): string
  * @param {number} numberOfSpaces Number of spaces to add.
  * @returns {string} cssLine with added spaces.
  */
-export function insertExtraSpaces(cssLine: string, numberOfSpaces: number): string {
-    return cssLine.replace(':', ' '.repeat(numberOfSpaces) + ':');
+export function insertExtraSpaces(cssLine: string, numberOfSpaces: number, alignColon: boolean): string {
+    return !alignColon ? cssLine.replace(':',':' + ' '.repeat(numberOfSpaces)) : cssLine.replace(':', ' '.repeat(numberOfSpaces) + ':');
 }
 
 /**
