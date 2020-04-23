@@ -13,12 +13,11 @@ export function format(document: vscode.TextDocument, range: vscode.Range | null
     const alignColon = settings.get('alignColon', true);
     // Set range if the range isn't set.
     if (range === null) {
-        range = initRange(document);
+        range = initDocumentRange(document);
     }
 
     const result: vscode.TextEdit[] = [];
     const content = document.getText(range);
-    console.log('TCL: format -> content', content);
 
     if (!defaultOptions) {
         defaultOptions = {
@@ -55,7 +54,7 @@ export function format(document: vscode.TextDocument, range: vscode.Range | null
  * @param {vscode.TextDocument} document
  * @returns {vscode.Range}
  */
-function initRange(document: vscode.TextDocument): vscode.Range {
+function initDocumentRange(document: vscode.TextDocument): vscode.Range {
     const lastLine = document.lineCount - 1;
     const start = new vscode.Position(0, 0);
     const end = new vscode.Position(lastLine, document.lineAt(lastLine).text.length);
@@ -99,9 +98,23 @@ export function verticalAlign(css: string, additionalSpaces: number = 0, alignCo
     const cssLines = css.split('\n');
     let firstProperty: number = -1;
     let lastProperty: number = -1;
+    let commentBlockEntered = false;
 
     cssLines.forEach((line: string, lineNumberIndex: number) => {
         line = line.trim();
+
+        // Skip comment lines
+        if (isCommentLine(line)) return;
+
+        if (line.trim().indexOf('*/') >= 0) {
+            commentBlockEntered = false;
+            return;
+        }
+
+        if (line.trim().startsWith('/*') || commentBlockEntered) {
+            commentBlockEntered = true;
+            return;
+        }
 
         // Set the start of the property group
         if (isProperty(line) && firstProperty === -1) {
@@ -121,7 +134,7 @@ export function verticalAlign(css: string, additionalSpaces: number = 0, alignCo
             while (firstProperty <= lastProperty) {
                 const colonIndex = cssLines[firstProperty].indexOf(':');
 
-                if (colonIndex < furthestColon) {
+                if (colonIndex < furthestColon && !isCommentLine(cssLines[firstProperty])) {
                     let diff = furthestColon - colonIndex;
                     cssLines[firstProperty] = insertExtraSpaces(cssLines[firstProperty], diff, alignColon);
                 }
@@ -149,6 +162,16 @@ export function verticalAlign(css: string, additionalSpaces: number = 0, alignCo
  */
 export function insertExtraSpaces(cssLine: string, numberOfSpaces: number, alignColon: boolean): string {
     return alignColon ? cssLine.replace(':', ' '.repeat(numberOfSpaces) + ':') : cssLine.replace(':', ':' + ' '.repeat(numberOfSpaces));
+}
+
+/**
+ * Checks to see if a line is commented.
+ *
+ * @param {string} line Line to check.
+ * @returns {boolean}
+ */
+export function isCommentLine(line: string): boolean {
+    return line.trim().startsWith('//');
 }
 
 /**

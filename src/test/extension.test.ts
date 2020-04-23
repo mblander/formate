@@ -113,3 +113,19 @@ suite('isProperty', function () {
         assert.equal(extension.isProperty('a:hover {'), false);
     });
 });
+
+suite('isCommentLine', function () {
+    test("commentLineWithoutSpaces", () => {
+        assert.equal(extension.isCommentLine('// color: red;'), true);
+    });
+
+    test("commentLineWithPrefixSpaces", () => {
+        assert.equal(extension.isCommentLine('    // color: red;'), true);
+    });
+
+    test("commentLineWithPreAndStufixSpaces", () => {
+        assert.equal(extension.isCommentLine('    //        color: red;'), true);
+    });
+
+
+});

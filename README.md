@@ -21,7 +21,7 @@ On Mac:
 | formate.enable                    | Enables/disables the extension                      | boolean | true     |
 | formate.verticalAlignProperties   | Controls if properties should be aligned vertically | boolean | true     |
 | formate.additionalSpaces          | if vertical alignment is on, this setting is to add extra spaces | boolean | 0     |
-| formate.alignColon          | whether colon should be vertical aligned or not | boolean | true    |
+| formate.alignColon                | whether colon should be vertical aligned or not | boolean | true    |
 
 
 
@@ -33,3 +33,5 @@ On Mac:
 | 1.0.1   | Few minor changes in package.json to publish to the marketplace.
 | 1.1.0   | Added setting "formate.additionalSpaces" to insert additional spaces if required.
 | 1.1.1   | Updated dependencies to fix the "potential security vulnerability" message.
+| 1.1.5   | Added setting alignColon to switch between align on property or on colon.
+|         | Skipping commented lines from vertical alignment 
