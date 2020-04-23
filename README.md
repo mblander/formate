@@ -21,6 +21,7 @@ On Mac:
 | formate.enable                    | Enables/disables the extension                      | boolean | true     |
 | formate.verticalAlignProperties   | Controls if properties should be aligned vertically | boolean | true     |
 | formate.additionalSpaces          | if vertical alignment is on, this setting is to add extra spaces | boolean | 0     |
+| formate.alignColon          | whether colon should be vertical aligned or not | boolean | true    |
 
 
 
