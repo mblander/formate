@@ -28,13 +28,13 @@ export function format(document: vscode.TextDocument, range: vscode.Range | null
         };
     }
 
-    const beutifyOptions: CSSBeautifyOptions = {
+    const beautifyOptions: CSSBeautifyOptions = {
         indent_char: defaultOptions.insertSpaces ? ' ' : '\t',
         indent_size: defaultOptions.insertSpaces ? defaultOptions.tabSize : 1,
         newline_between_rules: defaultOptions.newline_between_rules ? <boolean>defaultOptions.newline_between_rules : true,
     };
 
-    let formatted = jsbeautify.css_beautify(content, beutifyOptions);
+    let formatted = jsbeautify.css_beautify(content, beautifyOptions);
 
     if (verticalAlignProperties) {
         const additionalSpaces = settings.get('additionalSpaces', 0);
@@ -148,7 +148,7 @@ export function verticalAlign(css: string, additionalSpaces: number = 0, alignCo
  * @returns {string} cssLine with added spaces.
  */
 export function insertExtraSpaces(cssLine: string, numberOfSpaces: number, alignColon: boolean): string {
-    return !alignColon ? cssLine.replace(':',':' + ' '.repeat(numberOfSpaces)) : cssLine.replace(':', ' '.repeat(numberOfSpaces) + ':');
+    return alignColon ? cssLine.replace(':', ' '.repeat(numberOfSpaces) + ':') : cssLine.replace(':', ':' + ' '.repeat(numberOfSpaces));
 }
 
 /**

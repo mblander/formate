@@ -55,7 +55,7 @@ suite('insertExtraSpaces', function () {
         const property = 'text-align: center;';
 
         // Act
-        const result = extension.insertExtraSpaces(property, 0);
+        const result = extension.insertExtraSpaces(property, 0, true);
 
         // Assert
         assert.equal((result.match(/\s/g) || []).length, 1);
@@ -66,10 +66,33 @@ suite('insertExtraSpaces', function () {
         const property = 'text-align: center;';
 
         // Act
-        const result = extension.insertExtraSpaces(property, 5);
+        const result = extension.insertExtraSpaces(property, 5, true);
 
         // Assert
         assert.equal((result.match(/\s/g) || []).length, 6);
+    });
+
+    test("insertExtraSpaces_fiveSpaces_fiveSpacesBeforeColonAdded", () => {
+        // Arrange
+        const property = 'text-align: center;';
+
+        // Act
+        const result = extension.insertExtraSpaces(property, 5, true);
+
+        // Assert
+        assert.equal(result.indexOf('    : ') >= 0, true);
+    });
+
+
+    test("insertExtraSpaces_fiveSpaces_fiveSpacesAfterColonAdded", () => {
+        // Arrange
+        const property = 'text-align: center;';
+
+        // Act
+        const result = extension.insertExtraSpaces(property, 5, false);
+
+        // Assert
+        assert.equal(result.indexOf(':     ') >= 0, true);
     });
 });
 
