@@ -29,10 +29,11 @@ On Mac:
 
 | Version | Notes |
 |:--------|:------|
-| 1.0.0   | Initial release of CSS, LESS and SCSS Formatter
-| 1.0.1   | Few minor changes in package.json to publish to the marketplace.
-| 1.1.0   | Added setting "formate.additionalSpaces" to insert additional spaces if required.
-| 1.1.1   | Updated dependencies to fix the "potential security vulnerability" message.
+| 1.1.6   | Fixed an issue where Formate's settings in VSCode's UI where not visible.
 | 1.1.5   | Added setting alignColon to switch between align on property or on colon. (Thank you @Piets0n)
+| 1.1.1   | Updated dependencies to fix the "potential security vulnerability" message.
 |         | Skipping commented lines from vertical alignment 
+| 1.1.0   | Added setting "formate.additionalSpaces" to insert additional spaces if required.
+| 1.0.1   | Few minor changes in package.json to publish to the marketplace.
+| 1.0.0   | Initial release of CSS, LESS and SCSS Formatter
 

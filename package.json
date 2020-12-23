@@ -19,7 +19,7 @@
         "theme": "dark"
     },
     "description": "Formate is an CSS/LESS/SCSS format extension to format properties and align property values to improve readability.",
-    "version": "1.1.5",
+    "version": "1.1.6",
     "engines": {
         "vscode": "^1.32.0"
     },
@@ -48,19 +48,33 @@
     "main": "./out/extension",
     "contributes": {
         "type": "object",
-        "title": "formate configuration",
-        "properties": {
-            "formate.enable": {
-                "scope": "resource",
-                "type": "boolean",
-                "default": true,
-                "description": "Controls whether formate is enabled or not."
-            },
-            "formate.verticalA*gnProperties": {
-                "scope": "resource",
-                "type": "boolean",
-                "default": false,
-                "description": "Vertical align properties on colon per selector."
+        "configuration": {
+            "title": "Formate",
+            "properties": {
+                "formate.enable": {
+                    "scope": "resource",
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Controls whether formate is enabled or not."
+                },
+                "formate.verticalAlignProperties": {
+                    "scope": "resource",
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Vertical align properties on colon per selector."
+                },
+                "formate.alignColon": {
+                    "scope": "resource",
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Whether Formate should align on the colon or the CSS property value."
+                },
+                "formate.additionalSpaces": {
+                    "scope": "resource",
+                    "type": "number",
+                    "default": 0,
+                    "description": "Whether formate adds more spaces."
+                }
             }
         }
     },
