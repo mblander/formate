@@ -20,7 +20,7 @@ On Mac:
 |:--------------------------------- |:----------------------------------------------------|:-------:|:--------:|
 | formate.enable                    | Enables/disables the extension                      | boolean | true     |
 | formate.verticalAlignProperties   | Controls if properties should be aligned vertically | boolean | true     |
-| formate.additionalSpaces          | If vertical alignment is on, this setting is to add extra spaces | boolean | 0     |
+| formate.additionalSpaces          | If vertical alignment is on, this setting is to add extra spaces | number | 0     |
 | formate.alignColon                | Whether colon should be vertical aligned or not | boolean | true    |
 
 
