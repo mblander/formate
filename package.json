@@ -87,14 +87,14 @@
     },
     "license": "MIT",
     "dependencies": {
-        "@types/js-beautify": "^1.8.2",
-        "js-beautify": "1.10.0"
+        "@types/js-beautify": "^1.13.3",
+        "js-beautify": "^1.14.0"
     },
     "devDependencies": {
-        "@types/mocha": "^5.2.7",
-        "@types/node": "^12.12.37",
+        "@types/mocha": "^9.0.0",
+        "@types/node": "^16.10.8",
         "tslint": "^5.20.1",
-        "typescript": "^3.8.3",
-        "vscode": "^1.1.36"
+        "typescript": "^4.4.4",
+        "vscode": "^1.1.37"
     }
 }
