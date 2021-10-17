@@ -29,7 +29,7 @@ On Mac:
 
 | Version | Notes |
 |:--------|:------|
-| 1.2.0   | Added a feature to ignore a css line.
+| 1.2.0   | Added a feature to ignore a css line. (thank you @mariomui-viscira)
 | 1.1.6   | Fixed an issue where Formate's settings in VSCode's UI where not visible.
 | 1.1.5   | Added setting alignColon to switch between align on property or on colon. (Thank you @Piets0n)
 | 1.1.1   | Updated dependencies to fix the "potential security vulnerability" message.
