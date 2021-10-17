@@ -8,6 +8,8 @@ import * as assert from 'assert';
 import * as extension from '../extension';
 import cssProperties from './cssProperties';
 
+
+
 suite("findIndexOfFurthestColon", function () {
     test("correctPropertyGroup_succesfull", () => {
         // Arrange
@@ -46,6 +48,20 @@ suite("findIndexOfFurthestColon", function () {
 
         // Assert
         assert.equal(result, false);
+    });
+});
+
+suite('isIgnoreLine', function () {
+    test("withoutSpaces", () => {
+        assert.equal(extension.isLineIgnoreLine('// formate-ignore'), true);
+    });
+
+    test("withPrefixSpaces", () => {
+        assert.equal(extension.isLineIgnoreLine('    // formate-ignore;'), true);
+    });
+
+    test("withPreAndStufixSpaces", () => {
+        assert.equal(extension.isLineIgnoreLine('    // formate-ignore      '), true);
     });
 });
 
@@ -115,17 +131,79 @@ suite('isProperty', function () {
 });
 
 suite('isCommentLine', function () {
-    test("commentLineWithoutSpaces", () => {
-        assert.equal(extension.isCommentLine('// color: red;'), true);
+    test("withoutSpaces", () => {
+        assert.equal(extension.isLineCommentLine('// color: red;'), true);
     });
 
-    test("commentLineWithPrefixSpaces", () => {
-        assert.equal(extension.isCommentLine('    // color: red;'), true);
+    test("withPrefixSpaces", () => {
+        assert.equal(extension.isLineCommentLine('    // color: red;'), true);
     });
 
-    test("commentLineWithPreAndStufixSpaces", () => {
-        assert.equal(extension.isCommentLine('    //        color: red;'), true);
+    test("withPreAndStufixSpaces", () => {
+        assert.equal(extension.isLineCommentLine('    //        color: red;'), true);
+    });
+});
+
+suite('verticalAlign', function () {
+    test("normal align", () => {
+        // arange
+        const css = `.testclass{
+            color: red; 
+            background-color: green;
+        }`;
+
+        // act
+        const actual = extension.verticalAlign(css, 0, true)
+
+        // assert
+        assert.equal(actual.includes('color           : red;'), true);
     });
 
+    test("verticalAlign properties with additional spaces", () => {
+        // arange
+        const css = `.testclass{
+            color: red; 
+            background-color: green;
+        }`;
 
+        // act
+        const actual = extension.verticalAlign(css, 5, true)
+
+        // assert
+        assert.equal(actual.includes('color                : red;'), true);
+        assert.equal(actual.includes('background-color     : green;'), true);
+    });
+
+    test("verticalAlign properties with colon false", () => {
+        // arange
+        const css = `.testclass{
+            color: red; 
+            background-color: green;
+        }`;
+
+        // act
+        const actual = extension.verticalAlign(css, 0, false)
+
+        // assert
+        assert.equal(actual.includes('color:            red;'), true);
+        assert.equal(actual.includes('background-color: green;'), true);
+    });
+
+    test("verticalAlign properties with a line ignored", () => {
+        // arange
+        const css = `.testclass{
+            // formate-ignore
+            display: flex;
+            color: red; 
+            background-color: green;
+        }`;
+
+        // act
+        const actual = extension.verticalAlign(css, 0, true)
+
+        // assert
+        assert.equal(actual.includes('display: flex;'), true);
+        assert.equal(actual.includes('color           : red;'), true);
+        assert.equal(actual.includes('background-color: green;'), true);
+    });
 });

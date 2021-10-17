@@ -2,6 +2,7 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 import jsbeautify = require('js-beautify');
+import { CSSBeautifyOptions } from 'js-beautify';
 
 export function format(document: vscode.TextDocument, range: vscode.Range | null, defaultOptions: vscode.FormattingOptions) {
     const settings = vscode.workspace.getConfiguration('formate');
@@ -99,19 +100,31 @@ export function verticalAlign(css: string, additionalSpaces: number = 0, alignCo
     let firstProperty: number = -1;
     let lastProperty: number = -1;
     let commentBlockEntered = false;
+    let ignoreNextLine = false;
 
     cssLines.forEach((line: string, lineNumberIndex: number) => {
         line = line.trim();
 
-        // Skip comment lines
-        if (isCommentLine(line)) return;
+        // if ignoreNextLine is true ignore the current line and reset the parameter
+        if (ignoreNextLine) {
+            ignoreNextLine = false;
+            return;
+        }
+        // If the line is // formate-ignore set ignoreNextLine true
+        if (isLineIgnoreLine(line)) {
+            ignoreNextLine = true;
+            return;
+        }
 
-        if (line.trim().indexOf('*/') >= 0) {
+        // Skip comment lines
+        if (isLineCommentLine(line)) return;
+
+        if (line.indexOf('*/') >= 0) {
             commentBlockEntered = false;
             return;
         }
 
-        if (line.trim().startsWith('/*') || commentBlockEntered) {
+        if (line.startsWith('/*') || commentBlockEntered) {
             commentBlockEntered = true;
             return;
         }
@@ -134,7 +147,7 @@ export function verticalAlign(css: string, additionalSpaces: number = 0, alignCo
             while (firstProperty <= lastProperty) {
                 const colonIndex = cssLines[firstProperty].indexOf(':');
 
-                if (colonIndex < furthestColon && !isCommentLine(cssLines[firstProperty])) {
+                if (colonIndex < furthestColon && !isLineCommentLine(cssLines[firstProperty])) {
                     let diff = furthestColon - colonIndex;
                     cssLines[firstProperty] = insertExtraSpaces(cssLines[firstProperty], diff, alignColon);
                 }
@@ -170,8 +183,12 @@ export function insertExtraSpaces(cssLine: string, numberOfSpaces: number, align
  * @param {string} line Line to check.
  * @returns {boolean}
  */
-export function isCommentLine(line: string): boolean {
+export function isLineCommentLine(line: string): boolean {
     return line.trim().startsWith('//');
+}
+
+export function isLineIgnoreLine(line: string): boolean {
+    return line.trim().startsWith('// formate-ignore');
 }
 
 /**
